@@ -19,7 +19,11 @@
   --dots:"Doto", "Courier New", monospace;
   color-scheme:dark;
 }
+[hidden]{display:none!important}
+*,*::before,*::after{box-sizing:border-box}
 html,body{height:100%}
+body{margin:0;-webkit-text-size-adjust:100%}
+img{max-width:100%}
 body{background:var(--night);color:var(--chalk);font-family:var(--ui);margin:0;overflow:hidden;
   background-image:radial-gradient(ellipse 80% 40% at 15% -5%,rgba(255,240,200,.10),transparent 60%),radial-gradient(ellipse 80% 40% at 85% -5%,rgba(255,240,200,.10),transparent 60%),linear-gradient(var(--night),var(--night-2));}
 .app{height:100%;max-width:640px;margin:0 auto;padding-inline:16px;box-sizing:border-box}
