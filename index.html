@@ -7,7 +7,7 @@
 <meta name="color-scheme" content="dark">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Gombfoci</title>
-<!-- verzio: 2026-10-08b -->
+<!-- verzio: 2026-10-08c -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@700;900&family=Barlow+Semi+Condensed:wght@500;700&family=Doto:wght@800&display=swap">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}</style>
@@ -67,17 +67,21 @@ h1{font-family:var(--stencil);font-weight:900;font-size:clamp(68px,22vw,104px);l
   background:radial-gradient(circle at 42% 42%,rgba(0,0,0,.55) 2.6px,transparent 3.2px),radial-gradient(circle at 58% 42%,rgba(0,0,0,.55) 2.6px,transparent 3.2px),
   radial-gradient(circle at 42% 58%,rgba(0,0,0,.55) 2.6px,transparent 3.2px),radial-gradient(circle at 58% 58%,rgba(0,0,0,.55) 2.6px,transparent 3.2px),
   radial-gradient(circle at 34% 30%,rgba(255,255,255,.45),transparent 40%)}
-.formbar{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding-block:2px 6px}
-.formbar button{font-family:var(--dots);font-size:17px;border:1.5px solid rgba(241,239,230,.35);background:rgba(0,0,0,.3);color:var(--chalk);border-radius:6px;padding:5px 9px;cursor:pointer}
-.formbar button[aria-pressed="true"]{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+/* fix magasságú csapatsáv: soha nem változik a mérete, így a pálya sem ugrál */
+.turnbar{--tb:#2a3a46;--tr:#55636e;--tt:#f1efe6;flex:none;height:94px;margin-top:8px;border-radius:8px;padding:8px 12px;box-sizing:border-box;
+  display:flex;flex-direction:column;gap:5px;overflow:hidden;background:var(--tb);color:var(--tt);box-shadow:inset 0 -6px 0 var(--tr),0 6px 16px rgba(0,0,0,.4);
+  transition:background-color .35s,color .35s,box-shadow .35s}
+.turnbar.pop{animation:pop .45s ease-out}
+@keyframes pop{0%{transform:scale(.97);filter:brightness(1.3)}100%{transform:none;filter:none}}
+.tb-title{display:flex;align-items:center;gap:10px;min-width:0}
+.tb-title b{font-family:var(--stencil);font-weight:900;font-size:26px;line-height:1;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.tb-dot{width:16px;height:16px;border-radius:50%;flex:none;background:var(--tt);box-shadow:inset 0 0 0 3px var(--tr)}
+#status{font-size:14px;font-weight:500;line-height:1.3;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.formbar{display:flex;gap:4px}
+.formbar button{flex:1;min-width:0;font-family:var(--dots);font-size:14px;border:1.5px solid var(--tt);background:transparent;color:var(--tt);border-radius:5px;padding:5px 0;cursor:pointer;opacity:.8}
+.formbar button[aria-pressed="true"]{background:var(--tt);color:var(--tb);opacity:1}
+@media (prefers-reduced-motion:reduce){.turnbar,.turnbar.pop{transition:none;animation:none}}
 .stage{position:relative}
-.handover{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:5;cursor:pointer}
-.handover .band{width:100%;transform:rotate(-4deg);padding:14px 16px;text-align:center;box-shadow:0 10px 24px rgba(0,0,0,.5);
-  background:var(--hb);color:var(--ht);border-block:8px solid var(--hr);animation:slide 1.5s cubic-bezier(.2,.9,.2,1) both}
-.handover b{display:block;font-family:var(--stencil);font-weight:900;font-size:clamp(30px,9vw,46px);line-height:1;text-transform:uppercase;letter-spacing:.03em}
-.handover small{display:block;font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;margin-top:4px}
-@keyframes slide{0%{transform:translateX(-110%) rotate(-4deg)}18%,80%{transform:translateX(0) rotate(-4deg)}100%{transform:translateX(110%) rotate(-4deg)}}
-@media (prefers-reduced-motion:reduce){.handover .band{animation:none}}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .row .k{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;opacity:.75;width:100%}
 .seg{display:flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden}
@@ -99,8 +103,6 @@ button:focus-visible{outline:3px solid var(--chalk);outline-offset:2px}
 .side.on .lamp{background:var(--amber);box-shadow:0 0 10px var(--amber)}
 .sw{width:16px;height:16px;border-radius:50%;flex:none;background:var(--b);box-shadow:inset 0 0 0 3px var(--r)}
 .digits{font-family:var(--dots);font-size:40px;line-height:1;color:var(--amber);text-shadow:0 0 10px rgba(255,174,26,.55);font-variant-numeric:tabular-nums;letter-spacing:.06em}
-#status{text-align:center;font-size:15px;font-weight:500;letter-spacing:.03em;min-height:21px;padding-block:6px 4px;color:var(--chalk);text-wrap:balance}
-#status.warn{color:var(--amber)}
 .stage{flex:1;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
 canvas{display:block;touch-action:none;border-radius:8px;box-shadow:0 14px 30px rgba(0,0,0,.6)}
 .bar{display:flex;gap:10px;justify-content:center;align-items:center;padding-block:8px 12px;min-height:44px}
@@ -152,10 +154,12 @@ canvas{display:block;touch-action:none;border-radius:8px;box-shadow:0 14px 30px 
       <div class="digits"><span id="s0">0</span>:<span id="s1">0</span></div>
       <div class="side r" id="side1"><span id="code1">BRA</span><span class="sw" id="sw1"></span><span class="lamp"></span></div>
     </div>
-    <div id="status"></div>
-    <div class="formbar" id="formbar" role="group" aria-label="Felállás" hidden></div>
-    <div class="stage" id="stage"><canvas id="c" aria-label="Gombfoci pálya"></canvas>
-      <div class="handover" id="ho" hidden><div class="band"><b id="hoT"></b><small id="hoS"></small></div></div></div>
+    <div class="turnbar" id="turnbar" aria-live="polite">
+      <div class="tb-title"><span class="tb-dot"></span><b id="tbTitle">Gombfoci</b></div>
+      <p id="status"></p>
+      <div class="formbar" id="formbar" role="group" aria-label="Felállás" hidden></div>
+    </div>
+    <div class="stage" id="stage"><canvas id="c" aria-label="Gombfoci pálya"></canvas></div>
     <div class="bar"><button id="back">Menü</button><button id="act">Kezdés</button></div>
   </section>
 </div>
@@ -269,7 +273,6 @@ function nextForm(){
     aiTimer=setTimeout(()=>{formIdx++;nextForm();},900);return;
   }
   renderFormbar();ui();
-  if(!ai)handover(formTeam,nameOf(formTeam)+' felállása','Válassz, aztán Kész');
 }
 function renderFormbar(){
   const fb=$('formbar');fb.hidden=false;
@@ -286,23 +289,22 @@ function nextSlot(){
   if(slot>=placeSeq.length)return finishPlacement();
   placeTeam=placeSeq[slot];ui();
   if(ai&&placeTeam===1){aiTimer=setTimeout(()=>{aiPlaceOne();aiTimer=setTimeout(()=>{slot++;nextSlot();},700);},650);}
-  else if(!ai)handover(placeTeam,nameOf(placeTeam)+' helyez','1 gombot áthelyezhetsz, vagy Passz');
 }
 function finishPlacement(){
   const wasKick=phase==='setup';
   kickoffPending=wasKick;phase='aim';ui();
-  if(!ai)handover(turn,nameOf(turn)+' rúg',wasKick?'Kezdőrúgás':restartKind==='goalkick'?'Kirúgás':'Szabadrúgás');
   maybeAI();
 }
-function handover(t,title,sub){
-  const el=$('ho'),k=team[t].kit;
-  el.style.setProperty('--hb',k[0]);el.style.setProperty('--hr',k[1]);el.style.setProperty('--ht',lum(k[0])>0.6?'#1b1206':'#f6f4ec');
-  $('hoT').textContent=title;$('hoS').textContent=sub||'Add át a telefont!';
-  const band=el.firstElementChild;el.hidden=false;band.style.animation='none';void band.offsetWidth;band.style.animation='';
-  clearTimeout(hoTimer);hoTimer=setTimeout(hideHandover,1500);
+function hideHandover(){}
+let barTeam=-1,barTitle='';
+function setBar(t,title){
+  const el=$('turnbar'),k=team[t].kit;
+  if(t!==barTeam){
+    el.style.setProperty('--tb',k[0]);el.style.setProperty('--tr',k[1]);el.style.setProperty('--tt',lum(k[0])>0.6?'#1b1206':'#f6f4ec');
+    el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');barTeam=t;
+  }
+  if(title!==barTitle){$('tbTitle').textContent=title;barTitle=title;}
 }
-function hideHandover(){clearTimeout(hoTimer);$('ho').hidden=true;}
-$('ho').addEventListener('pointerdown',hideHandover);
 function moveTo(p,x,y){p.tx=x;p.ty=y;}
 function aiPlaceOne(){
   const mine=pieces.filter(p=>p.team===1&&p.n!==1&&!moved[1].has(p));
@@ -324,29 +326,36 @@ function aiPlaceOne(){
   for(const [x,y,pp] of tries){const p=pp||nearestMine(x,y);if(p&&validSpot(p,x,y)){moveTo(p,x,y);moved[1].add(p);return true;}}
   return false;
 }
-function setStatus(t,warn){$('status').textContent=t;$('status').classList.toggle('warn',!!warn);}
+function setStatus(t){$('status').textContent=t;}
 
 function ui(){
   $('s0').textContent=score[0];$('s1').textContent=score[1];
   $('side0').classList.toggle('on',turn===0);$('side1').classList.toggle('on',turn===1);
   const act=$('act');act.hidden=false;
+  const showForm=phase==='form'&&!(ai&&formTeam===1);
+  $('formbar').hidden=!showForm;$('status').hidden=showForm;
+  const lamp=t=>{$('side0').classList.toggle('on',t===0);$('side1').classList.toggle('on',t===1);};
   if(phase==='form'){
-    act.textContent='Kész';act.hidden=ai&&formTeam===1;
-    $('side0').classList.toggle('on',formTeam===0);$('side1').classList.toggle('on',formTeam===1);
-    setStatus(ai&&formTeam===1?'A gép felállást választ…':nameOf(formTeam)+': válassz felállást (védő–közép–támadó), aztán Kész.',true);
+    act.textContent='Kész';act.hidden=ai&&formTeam===1;lamp(formTeam);
+    setBar(formTeam,nameOf(formTeam)+' felállása');
+    setStatus(ai&&formTeam===1?'A gép felállást választ…':'');
   }else if(phase==='setup'||phase==='fksetup'){
-    act.textContent='Passz';act.hidden=ai&&placeTeam===1;
-    $('side0').classList.toggle('on',placeTeam===0);$('side1').classList.toggle('on',placeTeam===1);
+    act.textContent='Passz';act.hidden=ai&&placeTeam===1;lamp(placeTeam);
+    setBar(placeTeam,nameOf(placeTeam)+' helyez');
     const kind=phase==='setup'?'Kezdés előtt':restartKind==='goalkick'?'Kirúgás':'Szabadrúgás',n=movesOf(placeTeam)+1;
     if(ai&&placeTeam===1)setStatus(kind+': a gép áthelyez egy gombot ('+n+'/2)…');
-    else setStatus(kind+': '+nameOf(placeTeam)+' áthelyezhet 1 gombot ('+n+'/2), vagy Passz.'
-      +(phase==='setup'&&placeTeam===kicker?' Egy gombod a kezdőkörbe, az ellenfél oldalára is állhat.':''),true);
+    else setStatus(kind+': áthelyezhetsz 1 gombot ('+n+'/2), vagy Passz.'
+      +(phase==='setup'&&placeTeam===kicker?' Egy gombod a kezdőkörbe, az ellenfél oldalára is állhat.':''));
   }else if(phase==='over'){
-    act.textContent='Visszavágó';setStatus('Vége! '+(score[0]>score[1]?team[0].t.n:team[1].t.n)+' nyerte a meccset.',true);
+    const w=score[0]>score[1]?0:1;
+    act.textContent='Visszavágó';setBar(w,team[w].t.n+' nyert');setStatus('Vége a meccsnek: '+score[0]+' : '+score[1]+'.');
   }else{
     act.hidden=true;
-    if(phase==='aim')setStatus(ai&&turn===1?'A gép céloz…':forced?nameOf(turn)+' jön újra, de csak a kijelölt gombbal (az van a legközelebb a labdához).'
-      :nameOf(turn)+' jön: húzd hátra egy gombodat, és engedd el.'+(kickoffPending?' Kezdésből nem lehet gólt rúgni.':''),!!forced);
+    if(phase==='aim'){
+      setBar(turn,nameOf(turn)+(forced?' jön újra':' jön'));
+      setStatus(ai&&turn===1?'A gép céloz…':forced?'Csak a kijelölt gombbal pöccinthetsz: az van a legközelebb a labdához.'
+        :'Húzd hátra egy gombodat, és engedd el.'+(kickoffPending?' Kezdésből nem lehet gólt rúgni.':''));
+    }
   }
 }
 $('act').onclick=()=>{
@@ -440,7 +449,6 @@ function endOfShot(){
   phase='aim';
   if(keep)forced=near;else{forced=null;turn=1-turn;}
   ui();
-  if(!ai)handover(turn,nameOf(turn)+(keep?' jön újra':' jön'),keep?'Csak a kijelölt gombbal':'Add át a telefont!');
   maybeAI();
 }
 function noGoal(def){ // def: a csapat, amelyiknek a kapujába ment a labda
@@ -521,7 +529,7 @@ function aiShoot(){
   const v=Math.min(MAXV,0.045*d+12+Math.random()*6);
   shoot(best,Math.cos(a)*v,Math.sin(a)*v);
 }
-function shoot(p,vx,vy){p.tx=p.ty=null;p.vx=vx;p.vy=vy;shooter=p;firstContact=null;shooterTouched=false;kickoffShot=kickoffPending;kickoffPending=false;forced=null;phase='move';ui();setStatus('');}
+function shoot(p,vx,vy){p.tx=p.ty=null;p.vx=vx;p.vy=vy;shooter=p;firstContact=null;shooterTouched=false;kickoffShot=kickoffPending;kickoffPending=false;forced=null;phase='move';ui();setStatus('Gurul…');}
 
 // ---------- bevitel ----------
 function toWorld(e){const r=cv.getBoundingClientRect();return{x:(e.clientX-r.left)/scale-M,y:(e.clientY-r.top)/scale-M};}
